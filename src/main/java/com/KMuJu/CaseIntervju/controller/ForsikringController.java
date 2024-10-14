@@ -13,11 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-enum Krav {
-    JA,
-    NEI
-}
-
 /**
  * ForsikringController
  */
@@ -35,13 +30,32 @@ public class ForsikringController {
         return forsikringService.getForsikringer();
     }
 
-    @PutMapping("/forsikring")
-    public void putForsikring(@RequestBody Forsikring forsikring) {
-        forsikringService.createForsikring(forsikring);
+    /**
+     * Gir en anbefaling basert på parametre i url.
+     * I produksjon så kan dette være knyttet til en bruker istedenfor url parametre, og da må man ha en auth.
+     * Dette gjør at man kan gi bedre anbefaling fordi det er basert på mer informasjon.
+     * Hvis man lekker data om brukere på grunn av et angrep så vil dette være dårllig personvern.
+     * Man må da vekte fordelene mot ulempene ved å koble informasjonen opp mot enkeltpersoner.
+     *
+     * @param maxPris - maks pris en anbefaling kan ha
+     * @param krav - krav til anbefalingen
+     * @return Forsikring - anbefalt forsikring
+     */
+    @GetMapping("/anbefaling")
+    public Forsikring getMethodName(@RequestParam(name = "maxpris", defaultValue = "-1") int maxPris, @RequestParam List<Dekning> krav) {
+        return forsikringService.getAnbefaling(maxPris, krav);
     }
 
-    @GetMapping("/anbefaling")
-    public Forsikring getMethodName(@RequestParam int pris, @RequestParam List<Dekning> krav) {
-        return forsikringService.getAnbefaling(pris, krav);
+    /**
+     * # Sikkerhet
+     *
+     * Denne må ha strenge tilgangskrav
+     *
+     * @param forsikring ligger i body av requesten som en json
+     *
+     */
+    @PutMapping("admin/forsikring")
+    public void putForsikring(@RequestBody Forsikring forsikring) {
+        forsikringService.createForsikring(forsikring);
     }
 }
