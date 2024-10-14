@@ -40,17 +40,20 @@ public class Forsikring {
     @Enumerated(EnumType.STRING)  // Store enum as strings in the DB
     @CollectionTable(name = "forsikring_dekninger", joinColumns = @JoinColumn(name = "forsikring_id"))
     @Column(name = "dekning")
-    private List<Dekning> dekninger;
+    private List<Dekning> dekninger = new ArrayList<>();
 
 
 	public Forsikring() {}
 
-    public Forsikring(String navn, String beskrivelse, List<Long> inkluderer, int pris) {
+    public Forsikring(String navn, String beskrivelse, List<Long> inkluderer, List<Dekning> dekninger, int pris) {
         // TODO: Verifikasjon av parametre
         this.navn = navn;
         this.beskrivelse = beskrivelse;
         if (inkluderer != null) {
             this.inkluderer.addAll(inkluderer);
+        }
+        if (dekninger != null) {
+            this.dekninger.addAll(dekninger);
         }
         this.pris = pris;
     }
