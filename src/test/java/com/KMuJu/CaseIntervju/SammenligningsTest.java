@@ -2,17 +2,14 @@ package com.KMuJu.CaseIntervju;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import com.KMuJu.CaseIntervju.model.Dekning;
 import com.KMuJu.CaseIntervju.model.Forsikring;
 import com.KMuJu.CaseIntervju.model.ForsikringSammenligner;
 import com.KMuJu.CaseIntervju.model.Sammenligning;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * SammenligningsTest
@@ -37,5 +34,4 @@ class SammenligningsTest {
 
         assertEquals(expected, output);
     }
-
 }

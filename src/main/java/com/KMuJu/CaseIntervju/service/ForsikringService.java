@@ -36,19 +36,16 @@ public class ForsikringService {
         final int maxPris = max_Pris;
         List<Forsikring> forsikringer = forsikringRepository.findAll();
         Forsikring anbefaling = forsikringer.stream()
-            .filter(f ->
-                f.getPris() < maxPris &&
-                dekninger.stream()
-                    .filter(f.getDekninger()::contains)
-                    .toArray().length == dekninger.size()
-            )
-            .sorted((a,b) -> Integer.compare(a.getPris() - maxPris, b.getPris() - maxPris))
-            .findFirst().orElse(null);
+                .filter(f -> f.getPris() < maxPris
+                        && dekninger.stream().filter(f.getDekninger()::contains).toArray().length == dekninger.size())
+                .sorted((a, b) -> Integer.compare(a.getPris() - maxPris, b.getPris() - maxPris))
+                .findFirst()
+                .orElse(null);
 
         return anbefaling;
     }
 
-    public Sammenligning getSammenligning(Long a_id, Long b_id){
+    public Sammenligning getSammenligning(Long a_id, Long b_id) {
         Forsikring a = forsikringRepository.findById(a_id).orElseThrow();
         Forsikring b = forsikringRepository.findById(b_id).orElseThrow();
         return ForsikringSammenligner.Compare(a, b);

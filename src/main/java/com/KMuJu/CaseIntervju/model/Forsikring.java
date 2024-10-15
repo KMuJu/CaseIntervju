@@ -1,7 +1,6 @@
 /* (C)2024 */
 package com.KMuJu.CaseIntervju.model;
 
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -11,6 +10,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +37,12 @@ public class Forsikring {
     private int pris;
 
     @ElementCollection(targetClass = Dekning.class)
-    @Enumerated(EnumType.STRING)  // Store enum as strings in the DB
+    @Enumerated(EnumType.STRING) // Store enum as strings in the DB
     @CollectionTable(name = "forsikring_dekninger", joinColumns = @JoinColumn(name = "forsikring_id"))
     @Column(name = "dekning")
     private List<Dekning> dekninger = new ArrayList<>();
 
-
-	public Forsikring() {}
+    public Forsikring() {}
 
     public Forsikring(String navn, String beskrivelse, List<Long> inkluderer, List<Dekning> dekninger, int pris) {
         // TODO: Verifikasjon av parametre
@@ -88,10 +87,10 @@ public class Forsikring {
     }
 
     public List<Dekning> getDekninger() {
-		return dekninger;
-	}
+        return dekninger;
+    }
 
-	public void setDekninger(List<Dekning> dekninger) {
-		this.dekninger = dekninger;
-	}
+    public void setDekninger(List<Dekning> dekninger) {
+        this.dekninger = dekninger;
+    }
 }
