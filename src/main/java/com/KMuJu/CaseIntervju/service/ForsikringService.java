@@ -3,6 +3,8 @@ package com.KMuJu.CaseIntervju.service;
 
 import com.KMuJu.CaseIntervju.model.Dekning;
 import com.KMuJu.CaseIntervju.model.Forsikring;
+import com.KMuJu.CaseIntervju.model.ForsikringSammenligner;
+import com.KMuJu.CaseIntervju.model.Sammenligning;
 import com.KMuJu.CaseIntervju.repository.ForsikringRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,11 @@ public class ForsikringService {
             .findFirst().orElse(null);
 
         return anbefaling;
+    }
+
+    public Sammenligning getSammenligning(Long a_id, Long b_id){
+        Forsikring a = forsikringRepository.findById(a_id).orElseThrow();
+        Forsikring b = forsikringRepository.findById(b_id).orElseThrow();
+        return ForsikringSammenligner.Compare(a, b);
     }
 }
