@@ -10,7 +10,7 @@ public class ForsikringSammenligner {
      * @return Sammenligning between a and b
      */
     public static Sammenligning Compare(Forsikring a, Forsikring b) {
-        var prisForskjell = Math.abs(a.getPris() - b.getPris());
+        int prisForskjell = Math.abs(a.getPris() - b.getPris());
         var begge = a.getDekninger().stream().filter(b.getDekninger()::contains).toList();
         var kun_a = a.getDekninger().stream()
                 .filter(d -> !begge.contains(d))
