@@ -29,6 +29,14 @@ public class ForsikringService {
         return forsikringRepository.findAll();
     }
 
+    /**
+     * Returns a forsikring that covers every dekning in dekninger and the price is less than the max price.
+     * If max_pris is -1, we can ignore the price. This is done by setting the price to the highest int value.
+     *
+     * @param max_Pris
+     * @param dekninger
+     * @return Anbefalt forsikring
+     */
     public Forsikring getAnbefaling(int max_Pris, List<Dekning> dekninger) {
         if (max_Pris == -1) {
             max_Pris = Integer.MAX_VALUE;
@@ -38,7 +46,7 @@ public class ForsikringService {
         Forsikring anbefaling = forsikringer.stream()
                 .filter(f -> f.getPris() < maxPris
                         && dekninger.stream().filter(f.getDekninger()::contains).toArray().length == dekninger.size())
-                .sorted((a, b) -> Integer.compare(a.getPris() - maxPris, b.getPris() - maxPris))
+                .sorted((a, b) -> Integer.compare(maxPris - a.getPris(), maxPris - b.getPris()))
                 .findFirst()
                 .orElse(null);
 
