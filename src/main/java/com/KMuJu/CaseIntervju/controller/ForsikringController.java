@@ -35,10 +35,6 @@ public class ForsikringController {
 
     /**
      * Gir en anbefaling basert på parametre i url.
-     * I produksjon så kan dette være knyttet til en bruker istedenfor url parametre, og da må man ha en auth.
-     * Dette gjør at man kan gi bedre anbefaling fordi det er basert på mer informasjon.
-     * Hvis man lekker data om brukere på grunn av et angrep så vil dette være dårllig personvern.
-     * Man må da vekte fordelene mot ulempene ved å koble informasjonen opp mot enkeltpersoner.
      *
      * @param maxPris - maks pris en anbefaling kan ha
      * @param krav - krav til anbefalingen
